@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .app {
+        height: 100vh;
+        /* width: 100vw; */
+        background: black;
+        font-family: "Edu NSW ACT Foundation", cursive;
+        font-weight: 400;
+        position: relative;
+        /* /* font-weight: <weight>; */
+      }
+
+      .app::before {
+        content: "";
+        inset: 0;
+        position: absolute;
+        background-image: url("./spinbg.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        filter: blur(2px);
+      }
+
+      .app::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+        background: black;
+        opacity: 85%;
+      }
+
+      canvas {
+        position: absolute;
+        inset: 0;
+      }
+
+      header {
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: absolute;
+        top: 2rem;
+        filter: blur(100px);
+        animation: clearblur 2s 1s forwards;
+        z-index: 20;
+      }
+
+      @keyframes clearblur {
+        100% {
+          filter: blur(0px);
+        }
+      }
+
+      h1 {
+        text-shadow: 1px 1px 1px white, 1px 1px 10px white,
+          1px 1px 15px limegreen;
+        text-transform: uppercase;
+      }
+
+      .app-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .jared-img {
+        height: 350px;
+        width: 250px;
+        position: absolute;
+        bottom: 35%;
+        transform: scale(0);
+        z-index: 1;
+        animation: growjared 3s 1s forwards, dancejared 5s 4s infinite linear;
+        transform-origin: bottom;
+      }
+
+      @keyframes growjared {
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes dancejared {
+        0% {
+          transform: rotateY(0deg);
+        }
+        25% {
+          transform: rotateZ(40deg);
+        }
+
+        50% {
+          transform: rotateZ(-30deg) rotateX(40deg);
+        }
+        /* 80% {
+          transform: rotateX(40deg);
+        } */
+        75% {
+          transform: rotateY(180deg);
+        }
+        100% {
+          transform: rotateY(0deg);
+        }
+      }
+
+      .cake-img {
+        position: relative;
+        z-index: 5;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app">
+      <canvas></canvas>
+      <div class="overlay-loader"></div>
+      <div class="app-content">
+        <header>
+          <h1>Happy</h1>
+          <h1>Birthday!</h1>
+        </header>
+        <img class="jared-img" src="jared.png" alt="" />
+        <img class="cake-img" src="cake_img.png" alt="" />
+      </div>
+    </div>
+
+    <script>
+      const defaults = {
+        spread: 360,
+        ticks: 50,
+        gravity: 0,
+        decay: 0.94,
+        startVelocity: 30,
+        shapes: ["star"],
+        colors: ["FFE400", "FFBD00", "E89400", "FFCA6C", "FDFFB8"],
+      };
+
+      function shoot() {
+        confetti({
+          ...defaults,
+          particleCount: 40,
+          scalar: 1.2,
+          shapes: ["star"],
+        });
+
+        confetti({
+          ...defaults,
+          particleCount: 10,
+          scalar: 0.75,
+          shapes: ["circle"],
+        });
+        setTimeout(() => shoot(), (Math.random() * 3000) | (0 + 250));
+      }
+
+      setTimeout(() => {
+        // setTimeout(shoot, 500);
+        // setTimeout(shoot, 1000);
+        // setTimeout(shoot, 2000);
+        shoot();
+      }, 3000);
+    </script>
+  </body>
+</html>
